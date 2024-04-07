@@ -1,1 +1,8 @@
 rootProject.name = 'dissertation_artefact'
+include 'billing_db_service'
+include 'account_db_service'
+include 'communication_db_service'
+include 'communication_service'
+include 'account_service'
+include 'billing_service'
+
