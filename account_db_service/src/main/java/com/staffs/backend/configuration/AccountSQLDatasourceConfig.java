@@ -27,7 +27,7 @@ import java.util.HashMap;
 @Slf4j
 @Configuration
 @EnableJpaRepositories(entityManagerFactoryRef = "localContainerEntityManagerFactoryBean",
-        basePackages = {"com.staffs.backend.repository.log"},
+        basePackages = {"com.staffs.backend.repository.log", "com.staffs.backend.repository.user"},
         transactionManagerRef = "accountTransactionManager")
 @EnableTransactionManagement
 @EntityScan(basePackageClasses = BaseEntity.class)
@@ -62,7 +62,7 @@ public class AccountSQLDatasourceConfig {
         properties.put("hibernate.dialect" , "org.hibernate.dialect.PostgreSQL81Dialect");
 
         return builder.dataSource(dataSource).properties(properties)
-                .packages("com.staffs.backend.entity.log")
+                .packages("com.staffs.backend.entity.log", "com.staffs.backend.entity.user")
                 .persistenceUnit("account").build();
     }
 
