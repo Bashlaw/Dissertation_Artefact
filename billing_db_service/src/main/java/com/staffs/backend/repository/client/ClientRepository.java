@@ -1,9 +1,11 @@
 package com.staffs.backend.repository.client;
 
 import com.staffs.backend.entity.client.Client;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface ClientRepository extends JpaRepository<Client, Long> {
 
@@ -13,8 +15,8 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     Client findByClientNameAndActivation(String clientName, boolean activation);
 
-    Client findByClientName(String clientName);
+    Optional<Client> findByClientName(String clientName);
 
-    List<Client> findByActivation(boolean activation);
+    Page<Client> findByActivation(boolean activation, Pageable pageable);
 
 }
