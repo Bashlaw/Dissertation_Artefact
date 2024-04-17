@@ -8,6 +8,7 @@ import com.staffs.backend.exceptions.GeneralException;
 import com.staffs.backend.general.dto.MessageConstant;
 import com.staffs.backend.general.enums.ResponseCodeAndMessage;
 import com.staffs.backend.repository.billingMethod.BillingMethodRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -18,13 +19,10 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class BillingMethodServiceImpl implements BillingMethodService {
 
     private final BillingMethodRepository billingMethodRepository;
-
-    public BillingMethodServiceImpl(BillingMethodRepository billingMethodRepository) {
-        this.billingMethodRepository = billingMethodRepository;
-    }
 
     @Override
     public BillingMethodDTO saveBillingMethod(BillingMethodRequestDTO dto) {

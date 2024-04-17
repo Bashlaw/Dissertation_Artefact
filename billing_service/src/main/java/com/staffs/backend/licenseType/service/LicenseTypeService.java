@@ -1,6 +1,5 @@
 package com.staffs.backend.licenseType.service;
 
-import com.staffs.backend.entity.client.Client;
 import com.staffs.backend.entity.licenseType.LicenseType;
 import com.staffs.backend.licenseType.dto.LicenseTypeDTO;
 import com.staffs.backend.licenseType.dto.LicenseTypeDTORequest;
@@ -18,8 +17,6 @@ public interface LicenseTypeService {
     void invalidateLicense(String licenseName , String clientName);
 
     List<LicenseTypeDTO> getLicenseTypes(String clientName);
-
-    LicenseType getLicenseTypeByNameAndClient(String licenseName , Client client);
 
     LicenseType getLicenseType(String name);
 

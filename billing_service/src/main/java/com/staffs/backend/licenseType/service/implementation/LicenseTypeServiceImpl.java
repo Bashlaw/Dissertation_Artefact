@@ -10,6 +10,7 @@ import com.staffs.backend.licenseType.dto.LicenseTypeDTO;
 import com.staffs.backend.licenseType.dto.LicenseTypeDTORequest;
 import com.staffs.backend.licenseType.service.LicenseTypeService;
 import com.staffs.backend.repository.licenseType.LicenseTypeRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -20,15 +21,11 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class LicenseTypeServiceImpl implements LicenseTypeService {
 
     private final ClientService clientService;
     private final LicenseTypeRepository licenseTypeRepository;
-
-    public LicenseTypeServiceImpl(ClientService clientService , LicenseTypeRepository licenseTypeRepository) {
-        this.clientService = clientService;
-        this.licenseTypeRepository = licenseTypeRepository;
-    }
 
     @Override
     public LicenseTypeDTO saveLicenseType(LicenseTypeDTORequest dto) {
@@ -103,19 +100,13 @@ public class LicenseTypeServiceImpl implements LicenseTypeService {
     }
 
     @Override
-    public LicenseType getLicenseTypeByNameAndClient(String licenseName , Client client) {
-        return licenseTypeRepository.findByLicenseTypeNameAndDelFlagAndClient(licenseName , false , client)
-                .orElseThrow(() -> new GeneralException(ResponseCodeAndMessage.RECORD_NOT_FOUND.responseCode , MessageConstant.RECORD_NOT_FOUND));
+    public LicenseType getLicenseType(String name) {
+        return licenseTypeRepository.findByLicenseTypeName(name).orElseThrow(() -> new GeneralException(ResponseCodeAndMessage.RECORD_NOT_FOUND.responseCode , MessageConstant.RECORD_NOT_FOUND));
     }
 
     private LicenseType getLicenseByNameAndClient(String licenseName , Client client) {
         return licenseTypeRepository.findByLicenseTypeNameAndDelFlagAndClient(licenseName , false , client)
                 .orElseThrow(() -> new GeneralException(ResponseCodeAndMessage.RECORD_NOT_FOUND.responseCode , MessageConstant.RECORD_NOT_FOUND));
-    }
-
-    @Override
-    public LicenseType getLicenseType(String name) {
-        return licenseTypeRepository.findByLicenseTypeName(name).orElseThrow(() -> new GeneralException(ResponseCodeAndMessage.RECORD_NOT_FOUND.responseCode , MessageConstant.RECORD_NOT_FOUND));
     }
 
     private LicenseTypeDTO getLicenseTypeDTO(LicenseType licenseType) {

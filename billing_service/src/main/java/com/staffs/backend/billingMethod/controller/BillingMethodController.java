@@ -6,19 +6,17 @@ import com.staffs.backend.general.dto.MessageConstant;
 import com.staffs.backend.general.dto.Response;
 import com.staffs.backend.general.service.GeneralService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/billing/api/v1/billingMethod")
 public class BillingMethodController {
 
     private final GeneralService generalService;
     private final BillingMethodService billingMethodService;
-
-    public BillingMethodController(GeneralService generalService , BillingMethodService billingMethodService) {
-        this.generalService = generalService;
-        this.billingMethodService = billingMethodService;
-    }
 
     @PostMapping("/add")
     public Response addBillingMethod(@Valid @RequestBody BillingMethodRequestDTO dto) {

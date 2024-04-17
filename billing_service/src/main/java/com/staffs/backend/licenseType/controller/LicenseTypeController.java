@@ -6,19 +6,17 @@ import com.staffs.backend.general.service.GeneralService;
 import com.staffs.backend.licenseType.dto.LicenseTypeDTORequest;
 import com.staffs.backend.licenseType.service.LicenseTypeService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("/billing/api/v1/license")
 public class LicenseTypeController {
 
     private final GeneralService generalService;
     private final LicenseTypeService licenseTypeService;
-
-    public LicenseTypeController(GeneralService generalService , LicenseTypeService licenseTypeService) {
-        this.generalService = generalService;
-        this.licenseTypeService = licenseTypeService;
-    }
 
     @PostMapping("/add")
     public Response addLicenseType(@Valid @RequestBody LicenseTypeDTORequest dtoRequest) {
