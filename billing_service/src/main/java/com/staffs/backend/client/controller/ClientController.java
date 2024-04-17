@@ -53,9 +53,11 @@ public class ClientController {
 
     @GetMapping("/{clientName}")
     public Response getSingleClient(@PathVariable String clientName) {
+
         ClientDTO response = clientService.getClientDTOByName(clientName);
 
         return generalService.prepareSuccessResponse(response);
+
     }
 
 }
