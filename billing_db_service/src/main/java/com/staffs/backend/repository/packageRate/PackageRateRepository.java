@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PackageRateRepository extends JpaRepository<PackageRate, Long> {
 
@@ -14,11 +15,11 @@ public interface PackageRateRepository extends JpaRepository<PackageRate, Long> 
 
     boolean existsByVersionNoAndPackages(Long versionNo, Packages packages);
 
-    PackageRate findByVersionNoAndValidateAndPackages(Long versionNo, boolean validate, Packages packages);
+    Optional<PackageRate> findByVersionNoAndValidateAndPackages(Long versionNo, boolean validate, Packages packages);
 
     List<PackageRate> findByValidateAndPackages(boolean validate, Packages packages);
 
-    PackageRate findByVersionNoAndValidate(Long versionNo, boolean validate);
+    Optional<PackageRate> findByVersionNoAndValidate(Long versionNo, boolean validate);
 
     List<PackageRate> findByPackages(Packages packages);
 

@@ -27,14 +27,15 @@ import java.util.HashMap;
 @Slf4j
 @Configuration
 @EnableJpaRepositories(entityManagerFactoryRef = "localContainerEntityManagerFactoryBean",
-        basePackages = {"com.staffs.backend.repository.billLog", "com.staffs.backend.repository.transactionLog"
-                , "com.staffs.backend.repository.packages", "com.staffs.backend.repository.item"
-                , "com.staffs.backend.repository.billingSetup", "com.staffs.backend.repository.billingMethod"
-                , "com.staffs.backend.repository.client", "com.staffs.backend.repository.country"
-                , "com.staffs.backend.repository.coupon", "com.staffs.backend.repository.packageType"
-                , "com.staffs.backend.repository.licenseType", "com.staffs.backend.repository.licenseUpgrade"
-                , "com.staffs.backend.repository.paymentSource", "com.staffs.backend.repository.paymentIntegration"
-                , "com.staffs.backend.repository.log", "com.staffs.backend.repository.packageRate"},
+        basePackages = {"com.staffs.backend.repository.billLog" , "com.staffs.backend.repository.transactionLog"
+                , "com.staffs.backend.repository.packages" , "com.staffs.backend.repository.item"
+                , "com.staffs.backend.repository.billingSetup" , "com.staffs.backend.repository.billingMethod"
+                , "com.staffs.backend.repository.client" , "com.staffs.backend.repository.country"
+                , "com.staffs.backend.repository.coupon" , "com.staffs.backend.repository.packageType"
+                , "com.staffs.backend.repository.licenseType" , "com.staffs.backend.repository.licenseUpgrade"
+                , "com.staffs.backend.repository.paymentSource" , "com.staffs.backend.repository.paymentIntegration"
+                , "com.staffs.backend.repository.log" , "com.staffs.backend.repository.packageRate"
+                , "com.staffs.backend.repository.regionRate"},
         transactionManagerRef = "billingTransactionManager")
 @EnableTransactionManagement
 @EntityScan(basePackageClasses = BaseEntity.class)
@@ -65,14 +66,15 @@ public class BillingSQLDatasourceConfig {
         properties.put("hibernate.implicit_naming_strategy" , SpringImplicitNamingStrategy.class);
 
         return builder.dataSource(dataSource).properties(properties)
-                .packages("com.staffs.backend.entity.billLog", "com.staffs.backend.entity.transactionLog"
-                        , "com.staffs.backend.entity.packages", "com.staffs.backend.entity.item"
-                        , "com.staffs.backend.entity.billingSetup", "com.staffs.backend.entity.billingMethod"
-                        , "com.staffs.backend.entity.client", "com.staffs.backend.entity.country"
-                        , "com.staffs.backend.entity.coupon", "com.staffs.backend.entity.packageType"
-                        , "com.staffs.backend.entity.licenseType", "com.staffs.backend.entity.licenseUpgrade"
-                        , "com.staffs.backend.entity.paymentSource", "com.staffs.backend.entity.paymentIntegration"
-                        , "com.staffs.backend.entity.log", "com.staffs.backend.entity.packageRate")
+                .packages("com.staffs.backend.entity.billLog" , "com.staffs.backend.entity.transactionLog"
+                        , "com.staffs.backend.entity.packages" , "com.staffs.backend.entity.item"
+                        , "com.staffs.backend.entity.billingSetup" , "com.staffs.backend.entity.billingMethod"
+                        , "com.staffs.backend.entity.client" , "com.staffs.backend.entity.country"
+                        , "com.staffs.backend.entity.coupon" , "com.staffs.backend.entity.packageType"
+                        , "com.staffs.backend.entity.licenseType" , "com.staffs.backend.entity.licenseUpgrade"
+                        , "com.staffs.backend.entity.paymentSource" , "com.staffs.backend.entity.paymentIntegration"
+                        , "com.staffs.backend.entity.log" , "com.staffs.backend.entity.packageRate"
+                        , "com.staffs.backend.entity.regionRate")
                 .persistenceUnit("billing").build();
     }
 

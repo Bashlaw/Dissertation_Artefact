@@ -6,19 +6,20 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface PackageRepository extends JpaRepository<Packages, Long> {
 
     boolean existsByPackageNameAndPackageType(String packageName, PackageType packageType);
 
-    Packages findByPackageNameAndPackageTypeAndActivation(String packageName, PackageType packageType, boolean activation);
+    Optional<Packages> findByPackageNameAndPackageTypeAndActivation(String packageName, PackageType packageType, boolean activation);
 
-    Packages findByPackageNameAndActivation(String packageName, boolean activation);
+    Optional<Packages> findByPackageNameAndActivation(String packageName, boolean activation);
 
     List<Packages> findByPackageTypeAndActivation(PackageType packageType, boolean activation);
 
-    Packages findByPackageNameAndPackageType(String packageName, PackageType packageType);
+    Optional<Packages> findByPackageNameAndPackageType(String packageName, PackageType packageType);
 
     @Query(value = "select b.packages_package_id from billing_setup_packages b where b.billing_setup_bill_id = ?1", nativeQuery = true)
     Long getPackageIdForBill(UUID billId);

@@ -4,6 +4,7 @@ import com.staffs.backend.entity.item.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
@@ -19,14 +20,14 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     List<Item> findByItemNameAndPackages_packageNameAndDelFlag(String itemName, String packageName, boolean delFlag);
 
-    Item findByItemIdAndPackages_packageNameAndDelFlag(Long itemId, String packageName, boolean delFlag);
+    Optional<Item> findByItemIdAndPackages_packageNameAndDelFlag(Long itemId, String packageName, boolean delFlag);
 
-    Item findByItemNameAndDelFlag(String itemName, boolean delFlag);
+    Optional<Item> findByItemNameAndDelFlag(String itemName, boolean delFlag);
 
-    Item findByItemIdAndDelFlag(Long itemId, boolean delFlag);
+    Optional<Item> findByItemIdAndDelFlag(Long itemId, boolean delFlag);
 
     List<Item> findByDelFlagAndStandalone(boolean delFlag, boolean standalone);
 
-    Item findByItemNameAndDelFlagAndStandalone(String itemName, boolean delFlag, boolean standalone);
+    Optional<Item> findByItemNameAndDelFlagAndStandalone(String itemName, boolean delFlag, boolean standalone);
 
 }
