@@ -70,7 +70,7 @@ public class RegionRateServiceImpl implements RegionRateService {
             }
         }
 
-        return RegionRateDTO.getRegionRateDTOs(regionRates , true);
+        return RegionRateDTO.getRegionRateDTOs(regionRates);
 
     }
 
@@ -88,7 +88,7 @@ public class RegionRateServiceImpl implements RegionRateService {
 
         List<RegionRate> regionRates = regionRateRepository.findByPackageRate_packageRateId(packageRateId);
 
-        return RegionRateDTO.getRegionRateDTOs(regionRates , false);
+        return RegionRateDTO.getRegionRateDTOs(regionRates);
 
     }
 

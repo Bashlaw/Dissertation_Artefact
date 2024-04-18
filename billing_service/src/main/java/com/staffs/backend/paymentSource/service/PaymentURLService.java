@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface PaymentURLService {
 
-    PaymentUrlDTO savePaymentURL(String url , PaymentSource paymentSource);
+    void savePaymentURL(String url , PaymentSource paymentSource);
 
     List<PaymentUrlDTO> getPaymentUrlsDTOBySource(PaymentSource paymentSource);
 

@@ -1,12 +1,9 @@
 package com.staffs.backend.regionRate.dto;
 
 import com.staffs.backend.country.dto.CountryDTO;
-import com.staffs.backend.country.service.CountryService;
 import com.staffs.backend.entity.regionRate.RegionRate;
 import com.staffs.backend.packageRate.dto.PackageRateDTO;
-import com.staffs.backend.packageRate.service.PackageRateService;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 
@@ -15,7 +12,6 @@ import java.util.List;
 
 @Data
 @Slf4j
-@RequiredArgsConstructor
 public class RegionRateDTO {
 
     private Long regionRateId;
@@ -26,7 +22,7 @@ public class RegionRateDTO {
 
     private PackageRateDTO packageRate;
 
-    public static List<RegionRateDTO> getRegionRateDTOs(List<RegionRate> regionRates , boolean showRate) {
+    public static List<RegionRateDTO> getRegionRateDTOs(List<RegionRate> regionRates) {
         log.info("converting regionRate list to regionRateDTO list");
 
         List<RegionRateDTO> regionRateDTOs = new ArrayList<>();

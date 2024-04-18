@@ -148,7 +148,7 @@ public class PackageRateServiceImpl implements PackageRateService {
 
         //get region rate
         List<RegionRate> regionRates = regionRateRepository.findByPackageRate_packageRateId(packageRate.getPackageRateId());
-        packageRateDTO.setRegionRateDTOList(RegionRateDTO.getRegionRateDTOs(regionRates , false));
+        packageRateDTO.setRegionRateDTOList(RegionRateDTO.getRegionRateDTOs(regionRates));
 
         return packageRateDTO;
 

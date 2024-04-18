@@ -26,7 +26,7 @@ public class PaymentURLServiceImpl implements PaymentURLService {
     private final PaymentUrlRepository paymentUrlRepository;
 
     @Override
-    public PaymentUrlDTO savePaymentURL(String url , PaymentSource paymentSource) {
+    public void savePaymentURL(String url , PaymentSource paymentSource) {
         log.info("saving payment URL info!");
 
         PaymentURL paymentURL = new PaymentURL();
@@ -37,7 +37,7 @@ public class PaymentURLServiceImpl implements PaymentURLService {
         //save to DB
         paymentURL = paymentUrlRepository.save(paymentURL);
 
-        return getPaymentUrlDTO(paymentURL);
+        getPaymentUrlDTO(paymentURL);
     }
 
     @Override

@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.staffs.backend.utils.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Proxy;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,7 +13,6 @@ import java.util.List;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
-@Proxy(lazy = false)
 public class PaymentURL extends BaseEntity {
 
     @Id
