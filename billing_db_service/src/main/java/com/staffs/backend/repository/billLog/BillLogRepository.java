@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface BillLogRepository extends JpaRepository<BillLog, String> {
 
@@ -16,11 +17,11 @@ public interface BillLogRepository extends JpaRepository<BillLog, String> {
 
     List<BillLog> findByAccountIdAndItemOrderByCreatedAtDesc(String accountId , Item item);
 
-    BillLog findByBillLogId(String billLogId);
+    Optional<BillLog> findByBillLogId(String billLogId);
 
     Boolean existsByTransRef(String transRef);
 
-    BillLog findByAccountIdAndTransRef(String accountId , String transRef);
+    Optional<BillLog>  findByAccountIdAndTransRef(String accountId , String transRef);
 
     @Query(value = "select SUM(b.item_quantity) from bill_log b where encode(b.billing_setup_bill_id, 'hex') = ?1 AND b.item_item_id = ?2", nativeQuery = true)
     Long getUsedItemQuantity(String billId , Long itemId);

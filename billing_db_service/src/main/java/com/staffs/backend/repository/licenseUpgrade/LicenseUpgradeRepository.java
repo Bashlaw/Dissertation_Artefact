@@ -5,6 +5,7 @@ import com.staffs.backend.entity.licenseUpgrade.LicenseUpgrade;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface LicenseUpgradeRepository extends JpaRepository<LicenseUpgrade, Long> {
@@ -13,12 +14,12 @@ public interface LicenseUpgradeRepository extends JpaRepository<LicenseUpgrade, 
 
     List<LicenseUpgrade> findByBillingSetup(BillingSetup billingSetup);
 
-    LicenseUpgrade findByLicenseUpgradeId(Long licenseUpgradeId);
+    Optional<LicenseUpgrade> findByLicenseUpgradeId(Long licenseUpgradeId);
 
     List<LicenseUpgrade> findByAccountId(String accountId);
 
-    LicenseUpgrade findByBillingSetup_BillId(UUID billId);
+    Optional<LicenseUpgrade> findByBillingSetup_BillId(UUID billId);
 
-    LicenseUpgrade findByInitialBillId(UUID initialBillId);
+    Optional<LicenseUpgrade> findByInitialBillId(UUID initialBillId);
 
 }

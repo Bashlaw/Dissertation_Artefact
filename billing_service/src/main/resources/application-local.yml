@@ -22,3 +22,61 @@ spring:
     redis:
       host: ${REDIS_HOST}
       port: ${REDIS_PORT}
+
+# Payment sources
+
+# DPO
+dpo:
+  address:
+    url: ${DPO_ADDRESS_URL}
+  auth:
+    url: ${DPO_AUTH_URL}
+    username: ${DPO_AUTH_USERNAME}
+    password: ${DPO_AUTH_PASSWORD}
+  push:
+    url: ${DPO_PUSH_URL}
+  confirm:
+    url: ${DPO_CONFIRM_URL}
+  cancel:
+    url: ${DPO_CANCEL_URL}
+  refund:
+    url: ${DPO_REFUND_URL}
+  serviceType: ${DPO_SERVICE_TYPE}
+
+# M-Pesa
+mpesa:
+  address:
+    url: ${MPESA_ADDRESS_URL}
+  auth:
+    url: ${MPESA_AUTH_URL}
+    username: ${MPESA_AUTH_USERNAME}
+    password: ${MPESA_AUTH_PASSWORD}
+  push:
+    url: ${MPESA_PUSH_URL}
+  confirm:
+    url: ${MPESA_CONFIRM_URL}
+  cancel:
+    url: ${MPESA_CANCEL_URL}
+  refund:
+    url: ${MPESA_REFUND_URL}
+  bill:
+    number: ${MPESA_BILL_NUMBER}
+  reference:
+    id: ${MPESA_REFERENCE_ID}
+
+# Paystack
+paystack:
+  address:
+    url: ${PAYSTACK_ADDRESS_URL}
+  auth:
+    url: ${PAYSTACK_AUTH_URL}
+    username: ${PAYSTACK_AUTH_USERNAME}
+    password: ${PAYSTACK_AUTH_PASSWORD}
+  push:
+    url: ${PAYSTACK_PUSH_URL}
+  confirm:
+    url: ${PAYSTACK_CONFIRM_URL}
+  cancel:
+    url: ${PAYSTACK_CANCEL_URL}
+  refund:
+    url: ${PAYSTACK_REFUND_URL}
