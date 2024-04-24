@@ -3,7 +3,6 @@ package com.staffs.backend.billLog.service;
 import com.staffs.backend.billLog.dto.BillLogDTO;
 import com.staffs.backend.billLog.dto.BillLogListDTO;
 import com.staffs.backend.billLog.dto.BillLogRequestDTO;
-import com.staffs.backend.entity.billLog.BillLog;
 import com.staffs.backend.general.dto.PageableRequestDTO;
 
 import java.util.List;
