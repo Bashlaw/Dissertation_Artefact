@@ -1,16 +1,12 @@
 package com.staffs.backend.billingSetup.controller;
 
-import com.staffs.backend.billingSetup.dto.BillingSetupDTO;
 import com.staffs.backend.billingSetup.dto.BillingSetupRequestDTO;
 import com.staffs.backend.billingSetup.service.BillingSetupService;
-import com.staffs.backend.general.dto.BillChargeDTO;
 import com.staffs.backend.general.dto.Response;
 import com.staffs.backend.general.service.GeneralService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -23,49 +19,32 @@ public class BillingSetupController {
 
     @PostMapping("/add")
     public Response accountBillingSetup(@Valid @RequestBody BillingSetupRequestDTO dto) {
-
-        BillingSetupDTO billingSetupDTO = billingSetupService.setupAccountBill(dto);
-
-        return generalService.prepareSuccessResponse(billingSetupDTO);
+        return generalService.prepareSuccessResponse(billingSetupService.setupAccountBill(dto));
     }
 
     @GetMapping("/single/{accountId}/{packageName}")
     public Response getCurrentAccountBillingSetup(@PathVariable String accountId , @PathVariable String packageName) {
-
-        BillingSetupDTO billingSetupDTO = billingSetupService.getAccountBillDTOInfo(accountId , packageName);
-
-        return generalService.prepareSuccessResponse(billingSetupDTO);
+        return generalService.prepareSuccessResponse(billingSetupService.getAccountBillDTOInfo(accountId , packageName));
     }
 
     @GetMapping("/all/byAccountId/{accountId}")
     public Response getAccountBillingSetups(@PathVariable String accountId) {
-
-        List<BillingSetupDTO> billingSetupDTOs = billingSetupService.getAccountBillInfo(accountId);
-
-        return generalService.prepareSuccessResponse(billingSetupDTOs);
+        return generalService.prepareSuccessResponse(billingSetupService.getAccountBillInfo(accountId));
     }
 
     @GetMapping("/all/byPackageName/{packageName}")
     public Response getBillingSetupByPackage(@PathVariable String packageName) {
-
-        List<BillingSetupDTO> billingSetupDTOs = billingSetupService.getBillInfoByPackageName(packageName);
-
-        return generalService.prepareSuccessResponse(billingSetupDTOs);
+        return generalService.prepareSuccessResponse(billingSetupService.getBillInfoByPackageName(packageName));
     }
 
     @GetMapping("/getTotalBillCharge/{packageName}/{country}")
     public Response getTotalBillCharge(@PathVariable String packageName , @PathVariable String country) {
-
-        BillChargeDTO billChargeDTO = billingSetupService.getChargeAmount(packageName , country);
-        return generalService.prepareSuccessResponse(billChargeDTO);
+        return generalService.prepareSuccessResponse(billingSetupService.getChargeAmount(packageName , country));
     }
 
     @GetMapping("/activeSubscriptions/{accountId}")
     public Response getActiveSubscriptions(@PathVariable String accountId) {
-
-        List<BillingSetupDTO> billingSetupDTOs = billingSetupService.getActiveSubscriptions(accountId);
-
-        return generalService.prepareSuccessResponse(billingSetupDTOs);
+        return generalService.prepareSuccessResponse(billingSetupService.getActiveSubscriptions(accountId));
     }
 
 }
