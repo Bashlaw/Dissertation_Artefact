@@ -1,16 +1,12 @@
 package com.staffs.backend.licenseUpgrade.controller;
 
 import com.staffs.backend.general.dto.Response;
-import com.staffs.backend.general.dto.UpgradeChargeDTO;
 import com.staffs.backend.general.service.GeneralService;
-import com.staffs.backend.licenseUpgrade.dto.LicenseUpgradeDTO;
 import com.staffs.backend.licenseUpgrade.dto.LicenseUpgradeRequestDTO;
 import com.staffs.backend.licenseUpgrade.dto.UpgradeChargeRequestDTO;
 import com.staffs.backend.licenseUpgrade.service.LicenseUpgradeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @CrossOrigin
 @RestController
@@ -23,34 +19,22 @@ public class LicenseUpgradeController {
 
     @PostMapping("/add")
     public Response licenseUpgradeRequest(@RequestBody LicenseUpgradeRequestDTO dto) {
-
-        LicenseUpgradeDTO licenseUpgradeDTO = licenseUpgradeService.logLicenseUpgrade(dto);
-
-        return generalService.prepareSuccessResponse(licenseUpgradeDTO);
+        return generalService.prepareSuccessResponse(licenseUpgradeService.logLicenseUpgrade(dto));
     }
 
     @GetMapping("/single/{licenseUpgradeId}")
     public Response getActiveLicenseUpgradeInfo(@PathVariable Long licenseUpgradeId) {
-
-        LicenseUpgradeDTO licenseUpgradeDTO = licenseUpgradeService.getValidLicenseUpgradeById(licenseUpgradeId);
-
-        return generalService.prepareSuccessResponse(licenseUpgradeDTO);
+        return generalService.prepareSuccessResponse(licenseUpgradeService.getValidLicenseUpgradeById(licenseUpgradeId));
     }
 
     @GetMapping("/all/{accountId}")
     public Response getLicenseUpgradeHistory(@PathVariable String accountId) {
-
-        List<LicenseUpgradeDTO> licenseUpgradeDTOs = licenseUpgradeService.getLicenseUpgradeByAccountId(accountId);
-
-        return generalService.prepareSuccessResponse(licenseUpgradeDTOs);
+        return generalService.prepareSuccessResponse(licenseUpgradeService.getLicenseUpgradeByAccountId(accountId));
     }
 
     @GetMapping("/getTotalUpgradeCharge")
     public Response getTotalUpgradeCharge(@RequestBody UpgradeChargeRequestDTO dto) {
-
-        UpgradeChargeDTO upgradeChargeDTO = licenseUpgradeService.getChargeAmount(dto);
-
-        return generalService.prepareSuccessResponse(upgradeChargeDTO);
+        return generalService.prepareSuccessResponse(licenseUpgradeService.getChargeAmount(dto));
     }
 
 }

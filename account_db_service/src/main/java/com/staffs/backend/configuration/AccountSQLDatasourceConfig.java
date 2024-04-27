@@ -27,7 +27,8 @@ import java.util.HashMap;
 @Slf4j
 @Configuration
 @EnableJpaRepositories(entityManagerFactoryRef = "localContainerEntityManagerFactoryBean",
-        basePackages = {"com.staffs.backend.repository.log", "com.staffs.backend.repository.user"},
+        basePackages = {"com.staffs.backend.repository.log" , "com.staffs.backend.repository.user"
+                , "com.staffs.backend.repository.permission" , "com.staffs.backend.repository.role"},
         transactionManagerRef = "accountTransactionManager")
 @EnableTransactionManagement
 @EntityScan(basePackageClasses = BaseEntity.class)
@@ -56,13 +57,10 @@ public class AccountSQLDatasourceConfig {
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("hibernate.physical_naming_strategy" , CamelCaseToUnderscoresNamingStrategy.class);
         properties.put("hibernate.implicit_naming_strategy" , SpringImplicitNamingStrategy.class);
-        properties.put("hibernate.show_sql" , true);
-        properties.put("generate-ddl" , true);
-        properties.put("hibernate.hbm2ddl.auto" , "update");
-        properties.put("hibernate.dialect" , "org.hibernate.dialect.PostgreSQL81Dialect");
 
         return builder.dataSource(dataSource).properties(properties)
-                .packages("com.staffs.backend.entity.log", "com.staffs.backend.entity.user")
+                .packages("com.staffs.backend.entity.log" , "com.staffs.backend.entity.user"
+                        , "com.staffs.backend.entity.permission" , "com.staffs.backend.entity.role")
                 .persistenceUnit("account").build();
     }
 

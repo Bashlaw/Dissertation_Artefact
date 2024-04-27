@@ -52,7 +52,7 @@ dependencies {
     implementation 'javax.mail:javax.mail-api:1.6.2'
     implementation 'redis.clients:jedis:5.1.2'
 
-    implementation project(':billing_db_service')
+    implementation project(':account_db_service')
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'

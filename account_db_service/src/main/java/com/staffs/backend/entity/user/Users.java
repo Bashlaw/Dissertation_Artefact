@@ -1,11 +1,14 @@
 package com.staffs.backend.entity.user;
 
+import com.staffs.backend.entity.role.UserRole;
+import com.staffs.backend.enums.user.UserType;
 import com.staffs.backend.utils.BaseEntity;
-import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+
+import jakarta.persistence.*;
 
 @Getter
 @Setter
@@ -25,12 +28,21 @@ public class Users extends BaseEntity {
     @Column(unique = true)
     private String email;
 
+    @Column(unique = true)
+    private String phoneNumber;
+
     private String password;
+
+    @ManyToOne(optional = false)
+    private UserRole userRole;
 
     private boolean disabled = false;
 
     private boolean resetPassword;
 
-    private boolean changePassword;
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
+
+    private String accountId;
 
 }
