@@ -296,6 +296,7 @@ public class UserServiceImpl implements UserService {
             user.setResetPassword(false);
             user.setPassword(bCryptPasswordEncoder.encode(StartupConstant.DEFAULT_SYSTEM_ADMIN_PASSWORD));
             user.setUserRole(userRole);
+            user.setUserType(UserType.ADMIN);
 
             //save to DB
             user = usersRepository.save(user);

@@ -194,7 +194,7 @@ public class UserRoleServiceImpl implements UserRoleService {
         Users users = usersRepository.findByEmail(email).orElseThrow(() -> new GeneralException(ResponseCodeAndMessage.RECORD_NOT_FOUND.responseCode , "User (" + email + ") does not exist"));
 
         //check first time login using change password
-        if (!users.isResetPassword()) {
+        if (users.isResetPassword()) {
             throw new GeneralException(ResponseCodeAndMessage.CHANGE_USER_PASSWORD.responseCode , MessageConstant.NEED_TO_CHANGE_PASSWORD_TO_THEIR_DESIRED_PASSWORD_TO_CONTINUE);
         }
 
