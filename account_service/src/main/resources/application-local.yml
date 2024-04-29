@@ -24,4 +24,7 @@ spring:
       port: ${REDIS_PORT}
   flyway:
     enabled: true
-    locations: classpath:db/migration/account_service
+    locations: classpath:db/migration/account
+    table: account_flyway_schema_history
+    baseline-on-migrate: true
+    baseline-version: 0
