@@ -28,7 +28,8 @@ import java.util.HashMap;
 @Configuration
 @EnableJpaRepositories(entityManagerFactoryRef = "localContainerEntityManagerFactoryBean",
         basePackages = {"com.staffs.backend.repository.log" , "com.staffs.backend.repository.user"
-                , "com.staffs.backend.repository.permission" , "com.staffs.backend.repository.role"},
+                , "com.staffs.backend.repository.permission" , "com.staffs.backend.repository.role"
+                , "com.staffs.backend.repository.otp"},
         transactionManagerRef = "accountTransactionManager")
 @EnableTransactionManagement
 @EntityScan(basePackageClasses = BaseEntity.class)
@@ -60,7 +61,8 @@ public class AccountSQLDatasourceConfig {
 
         return builder.dataSource(dataSource).properties(properties)
                 .packages("com.staffs.backend.entity.log" , "com.staffs.backend.entity.user"
-                        , "com.staffs.backend.entity.permission" , "com.staffs.backend.entity.role")
+                        , "com.staffs.backend.entity.permission" , "com.staffs.backend.entity.role"
+                        , "com.staffs.backend.entity.otp")
                 .persistenceUnit("account").build();
     }
 

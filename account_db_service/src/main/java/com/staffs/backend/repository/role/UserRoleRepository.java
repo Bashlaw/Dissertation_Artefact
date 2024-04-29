@@ -11,4 +11,6 @@ public interface UserRoleRepository extends JpaRepository<UserRole, Long> {
 
     Optional<UserRole> findByIdAndDisabled(Long id , boolean disabled);
 
+    Optional<UserRole> findByName(String name);
+
 }
