@@ -10,11 +10,7 @@ import java.util.Objects;
 @Getter
 public class BillingUser extends User {
 
-    private String userType;
-
-    public BillingUser(String username , String password , Collection<? extends GrantedAuthority> authorities) {
-        super(username , password , authorities);
-    }
+    private final String userType;
 
     public BillingUser(String username , String password , Collection<? extends GrantedAuthority> authorities , String userType) {
         super(username , password , authorities);
