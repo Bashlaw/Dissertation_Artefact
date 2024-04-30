@@ -430,6 +430,11 @@ public class UserServiceImpl implements UserService {
         return usersRepository.findByEmail(email).orElseThrow(() -> new GeneralException(ResponseCodeAndMessage.RECORD_NOT_FOUND.responseCode , MessageConstant.USER_NOT_FOUND));
     }
 
+    @Override
+    public Users getUserById(Long id) {
+        return usersRepository.findById(id).orElseThrow(() -> new GeneralException(ResponseCodeAndMessage.RECORD_NOT_FOUND.responseCode , MessageConstant.USER_NOT_FOUND));
+    }
+
     private Users getAdminUserByPhoneNumber(String phoneNumber) {
         return usersRepository.findByPhoneNumber(phoneNumber).orElseThrow(() -> new GeneralException(ResponseCodeAndMessage.RECORD_NOT_FOUND.responseCode , MessageConstant.USER_NOT_FOUND));
     }

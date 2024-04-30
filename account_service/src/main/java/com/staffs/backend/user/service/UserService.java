@@ -36,4 +36,6 @@ public interface UserService {
 
     Users getUser(String email);
 
+    Users getUserById(Long id);
+
 }
