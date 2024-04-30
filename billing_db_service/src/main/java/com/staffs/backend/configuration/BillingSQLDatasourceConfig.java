@@ -97,6 +97,19 @@ public class BillingSQLDatasourceConfig {
     }
 
     @Bean
+    public LocalContainerEntityManagerFactoryBean communicationLocalContainerEntityManagerFactoryBean(EntityManagerFactoryBuilder builder ,
+                                                                                                      @Qualifier("CommunicationDataSource") DataSource dataSource) {
+        HashMap<String, Object> properties = new HashMap<>();
+        properties.put("hibernate.physical_naming_strategy" , CamelCaseToUnderscoresNamingStrategy.class);
+        properties.put("hibernate.implicit_naming_strategy" , SpringImplicitNamingStrategy.class);
+
+        return builder.dataSource(dataSource).properties(properties)
+                .packages("com.staffs.backend.entity.email" , "com.staffs.backend.entity.sms"
+                        , "com.staffs.backend.entity.notification")
+                .persistenceUnit("communication").build();
+    }
+
+    @Bean
     @Primary
     public JdbcTemplate jdbcTemplateBilling(@Qualifier("billingDataSource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
@@ -104,6 +117,11 @@ public class BillingSQLDatasourceConfig {
 
     @Bean
     public JdbcTemplate jdbcTemplateAccount(@Qualifier("accountDataSource") DataSource dataSource) {
+        return new JdbcTemplate(dataSource);
+    }
+
+    @Bean
+    public JdbcTemplate jdbcTemplateCommunication(@Qualifier("CommunicationDataSource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
 
@@ -121,6 +139,12 @@ public class BillingSQLDatasourceConfig {
     }
 
     @Bean
+    public PlatformTransactionManager communicationTransactionManager(
+            @Qualifier("communicationLocalContainerEntityManagerFactoryBean") EntityManagerFactory entityManagerFactory) {
+        return new JpaTransactionManager(entityManagerFactory);
+    }
+
+    @Bean
     @Primary
     public HibernateExceptionTranslator hibernateExceptionTranslatorBilling() {
         return new HibernateExceptionTranslator();
@@ -128,6 +152,11 @@ public class BillingSQLDatasourceConfig {
 
     @Bean
     public HibernateExceptionTranslator hibernateExceptionTranslatorAccount() {
+        return new HibernateExceptionTranslator();
+    }
+
+    @Bean
+    public HibernateExceptionTranslator hibernateExceptionTranslatorCommunication() {
         return new HibernateExceptionTranslator();
     }
 

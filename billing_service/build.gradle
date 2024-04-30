@@ -51,7 +51,7 @@ dependencies {
     implementation 'net.minidev:json-smart:2.5.1'
 
     implementation project(':billing_db_service')
-    //implementation project(':communication_service')
+    implementation project(':communication_db_service')
     implementation project(':account_db_service')
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
