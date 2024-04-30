@@ -26,7 +26,7 @@ import java.util.HashMap;
 
 @Slf4j
 @Configuration
-@EnableJpaRepositories(entityManagerFactoryRef = "localContainerEntityManagerFactoryBean",
+@EnableJpaRepositories(entityManagerFactoryRef = "billingLocalContainerEntityManagerFactoryBean",
         basePackages = {"com.staffs.backend.repository.billLog" , "com.staffs.backend.repository.transactionLog"
                 , "com.staffs.backend.repository.packages" , "com.staffs.backend.repository.item"
                 , "com.staffs.backend.repository.billingSetup" , "com.staffs.backend.repository.billingMethod"
@@ -43,24 +43,24 @@ public class BillingSQLDatasourceConfig {
 
     @Bean
     @ConfigurationProperties("spring.datasource.billing.sql")
-    public DataSourceProperties dataSourceProperties() {
+    public DataSourceProperties billingDataSourceProperties() {
         return new DataSourceProperties();
     }
 
     @Bean
     @ConfigurationProperties("spring.datasource.billing.sql.configuration")
-    public DataSource dataSource() {
-        log.debug("Datasource properties :urlProps ==============================> {}" , dataSourceProperties().getUrl());
-        log.debug("Datasource properties :username ==============================> {}" , dataSourceProperties().getUsername());
-        log.debug("Datasource properties :password ==============================> {}" , dataSourceProperties().getPassword());
-        return dataSourceProperties().initializeDataSourceBuilder()
+    public DataSource billingDataSource() {
+        log.debug("Datasource properties :urlProps ==============================> {}" , billingDataSourceProperties().getUrl());
+        log.debug("Datasource properties :username ==============================> {}" , billingDataSourceProperties().getUsername());
+        log.debug("Datasource properties :password ==============================> {}" , billingDataSourceProperties().getPassword());
+        return billingDataSourceProperties().initializeDataSourceBuilder()
                 .type(HikariDataSource.class)
                 .build();
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean(EntityManagerFactoryBuilder builder ,
-                                                                                         @Qualifier("dataSource") DataSource dataSource) {
+    public LocalContainerEntityManagerFactoryBean billingLocalContainerEntityManagerFactoryBean(EntityManagerFactoryBuilder builder ,
+                                                                                                @Qualifier("billingDataSource") DataSource dataSource) {
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("hibernate.physical_naming_strategy" , CamelCaseToUnderscoresNamingStrategy.class);
         properties.put("hibernate.implicit_naming_strategy" , SpringImplicitNamingStrategy.class);
@@ -79,13 +79,26 @@ public class BillingSQLDatasourceConfig {
     }
 
     @Bean
-    public JdbcTemplate jdbcTemplateBilling(@Qualifier("dataSource") DataSource dataSource) {
+    public LocalContainerEntityManagerFactoryBean communicationLocalContainerEntityManagerFactoryBean(EntityManagerFactoryBuilder builder ,
+                                                                                                      @Qualifier("CommunicationDataSource") DataSource dataSource) {
+        HashMap<String, Object> properties = new HashMap<>();
+        properties.put("hibernate.physical_naming_strategy" , CamelCaseToUnderscoresNamingStrategy.class);
+        properties.put("hibernate.implicit_naming_strategy" , SpringImplicitNamingStrategy.class);
+
+        return builder.dataSource(dataSource).properties(properties)
+                .packages("com.staffs.backend.entity.email" , "com.staffs.backend.entity.sms"
+                        , "com.staffs.backend.entity.notification")
+                .persistenceUnit("communication").build();
+    }
+
+    @Bean
+    public JdbcTemplate jdbcTemplateBilling(@Qualifier("billingDataSource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
 
     @Bean
     public PlatformTransactionManager billingTransactionManager(
-            @Qualifier("localContainerEntityManagerFactoryBean") EntityManagerFactory entityManagerFactory) {
+            @Qualifier("billingLocalContainerEntityManagerFactoryBean") EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
 

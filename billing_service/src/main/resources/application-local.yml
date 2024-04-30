@@ -5,6 +5,11 @@ spring:
         url: jdbc:postgresql://${POSTGRES_HOST}:5432/${POSTGRES_BILLING_DB}
         username: ${POSTGRES_USER}
         password: ${POSTGRES_PASSWORD}
+    communication:
+      sql:
+        url: jdbc:postgresql://${POSTGRES_HOST}:5432/${POSTGRES_COMMUNICATION_DB}
+        username: ${POSTGRES_USER}
+        password: ${POSTGRES_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: ${HIBERNATE_DDL_AUTO}
@@ -26,6 +31,16 @@ spring:
     enabled: true
     locations: classpath:db/migration
     table: flyway_schema_history
+  main:
+    allow-bean-definition-overriding: true
+
+server:
+  port: ${BILLING_SERVICE_PORT}
+
+logging:
+  level:
+    org:
+      springframework: DEBUG
 
 # Payment sources
 

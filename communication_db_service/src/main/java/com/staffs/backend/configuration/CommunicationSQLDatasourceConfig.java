@@ -26,7 +26,7 @@ import java.util.HashMap;
 
 @Slf4j
 @Configuration
-@EnableJpaRepositories(entityManagerFactoryRef = "localContainerEntityManagerFactoryBean",
+@EnableJpaRepositories(entityManagerFactoryRef = "communicationLocalContainerEntityManagerFactoryBean",
         basePackages = {"com.staffs.backend.repository.email" , "com.staffs.backend.repository.sms"
                 , "com.staffs.backend.repository.notification"},
         transactionManagerRef = "communicationTransactionManager")
@@ -36,24 +36,24 @@ public class CommunicationSQLDatasourceConfig {
 
     @Bean
     @ConfigurationProperties("spring.datasource.communication.sql")
-    public DataSourceProperties dataSourceProperties() {
+    public DataSourceProperties communicationDataSourceProperties() {
         return new DataSourceProperties();
     }
 
     @Bean
     @ConfigurationProperties("spring.datasource.communication.sql.configuration")
-    public DataSource dataSource() {
-        log.debug("Datasource properties :urlProps ==============================> {}" , dataSourceProperties().getUrl());
-        log.debug("Datasource properties :username ==============================> {}" , dataSourceProperties().getUsername());
-        log.debug("Datasource properties :password ==============================> {}" , dataSourceProperties().getPassword());
-        return dataSourceProperties().initializeDataSourceBuilder()
+    public DataSource CommunicationDataSource() {
+        log.debug("Datasource properties :urlProps ==============================> {}" , communicationDataSourceProperties().getUrl());
+        log.debug("Datasource properties :username ==============================> {}" , communicationDataSourceProperties().getUsername());
+        log.debug("Datasource properties :password ==============================> {}" , communicationDataSourceProperties().getPassword());
+        return communicationDataSourceProperties().initializeDataSourceBuilder()
                 .type(HikariDataSource.class)
                 .build();
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean(EntityManagerFactoryBuilder builder ,
-                                                                                         @Qualifier("dataSource") DataSource dataSource) {
+    public LocalContainerEntityManagerFactoryBean communicationLocalContainerEntityManagerFactoryBean(EntityManagerFactoryBuilder builder ,
+                                                                                                      @Qualifier("CommunicationDataSource") DataSource dataSource) {
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("hibernate.physical_naming_strategy" , CamelCaseToUnderscoresNamingStrategy.class);
         properties.put("hibernate.implicit_naming_strategy" , SpringImplicitNamingStrategy.class);
@@ -65,13 +65,13 @@ public class CommunicationSQLDatasourceConfig {
     }
 
     @Bean
-    public JdbcTemplate jdbcTemplateCommunication(@Qualifier("dataSource") DataSource dataSource) {
+    public JdbcTemplate jdbcTemplateCommunication(@Qualifier("CommunicationDataSource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
 
     @Bean
     public PlatformTransactionManager communicationTransactionManager(
-            @Qualifier("localContainerEntityManagerFactoryBean") EntityManagerFactory entityManagerFactory) {
+            @Qualifier("communicationLocalContainerEntityManagerFactoryBean") EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
 
