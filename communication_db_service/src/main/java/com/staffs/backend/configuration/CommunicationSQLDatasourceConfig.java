@@ -57,10 +57,6 @@ public class CommunicationSQLDatasourceConfig {
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("hibernate.physical_naming_strategy" , CamelCaseToUnderscoresNamingStrategy.class);
         properties.put("hibernate.implicit_naming_strategy" , SpringImplicitNamingStrategy.class);
-        properties.put("hibernate.show_sql" , true);
-        properties.put("generate-ddl" , true);
-        properties.put("hibernate.hbm2ddl.auto" , "update");
-        properties.put("hibernate.dialect" , "org.hibernate.dialect.PostgreSQL81Dialect");
 
         return builder.dataSource(dataSource).properties(properties)
                 .packages("com.staffs.backend.entity.email" , "com.staffs.backend.entity.sms"
