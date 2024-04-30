@@ -14,7 +14,7 @@ import lombok.ToString;
 @ToString
 @RequiredArgsConstructor
 @Entity
-@Table(name = "Users", indexes = {
+@Table(name = "users", indexes = {
         @Index(name = "idx_users_email", columnList = "email") ,
         @Index(name = "idx_users_phonenumber", columnList = "phoneNumber") ,
         @Index(name = "idx_users_usertype", columnList = "userType")

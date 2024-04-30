@@ -1,6 +1,5 @@
 package com.staffs.backend.entity.log;
 
-import com.staffs.backend.entity.user.Users;
 import com.staffs.backend.utils.BaseEntity;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +19,7 @@ public class AccessLog extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    private Users user;
+    private long userId;
 
     private String deviceInfo;
 
