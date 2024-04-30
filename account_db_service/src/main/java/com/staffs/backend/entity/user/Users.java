@@ -3,18 +3,22 @@ package com.staffs.backend.entity.user;
 import com.staffs.backend.entity.role.UserRole;
 import com.staffs.backend.enums.user.UserType;
 import com.staffs.backend.utils.BaseEntity;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
-import jakarta.persistence.*;
 
 @Getter
 @Setter
 @ToString
 @RequiredArgsConstructor
 @Entity
+@Table(name = "users", indexes = {
+        @Index(name = "idx_users_email", columnList = "email") ,
+        @Index(name = "idx_users_phonenumber", columnList = "phoneNumber") ,
+        @Index(name = "idx_users_usertype", columnList = "userType")
+})
 public class Users extends BaseEntity {
 
     @Id
@@ -38,11 +42,13 @@ public class Users extends BaseEntity {
 
     private boolean disabled = false;
 
-    private boolean resetPassword;
+    private boolean resetPassword = false;
 
     @Enumerated(EnumType.STRING)
     private UserType userType;
 
     private String accountId;
+
+    private boolean deleted = false;
 
 }

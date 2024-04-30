@@ -26,9 +26,10 @@ import java.util.HashMap;
 
 @Slf4j
 @Configuration
-@EnableJpaRepositories(entityManagerFactoryRef = "localContainerEntityManagerFactoryBean",
+@EnableJpaRepositories(entityManagerFactoryRef = "accountLocalContainerEntityManagerFactoryBean",
         basePackages = {"com.staffs.backend.repository.log" , "com.staffs.backend.repository.user"
-                , "com.staffs.backend.repository.permission" , "com.staffs.backend.repository.role"},
+                , "com.staffs.backend.repository.permission" , "com.staffs.backend.repository.role"
+                , "com.staffs.backend.repository.otp"},
         transactionManagerRef = "accountTransactionManager")
 @EnableTransactionManagement
 @EntityScan(basePackageClasses = BaseEntity.class)
@@ -36,42 +37,43 @@ public class AccountSQLDatasourceConfig {
 
     @Bean
     @ConfigurationProperties("spring.datasource.account.sql")
-    public DataSourceProperties dataSourceProperties() {
+    public DataSourceProperties accountDataSourceProperties() {
         return new DataSourceProperties();
     }
 
     @Bean
     @ConfigurationProperties("spring.datasource.account.sql.configuration")
-    public DataSource dataSource() {
-        log.debug("Datasource properties :urlProps ==============================> {}" , dataSourceProperties().getUrl());
-        log.debug("Datasource properties :username ==============================> {}" , dataSourceProperties().getUsername());
-        log.debug("Datasource properties :password ==============================> {}" , dataSourceProperties().getPassword());
-        return dataSourceProperties().initializeDataSourceBuilder()
+    public DataSource accountDataSource() {
+        log.debug("Datasource properties :urlProps ==============================> {}" , accountDataSourceProperties().getUrl());
+        log.debug("Datasource properties :username ==============================> {}" , accountDataSourceProperties().getUsername());
+        log.debug("Datasource properties :password ==============================> {}" , accountDataSourceProperties().getPassword());
+        return accountDataSourceProperties().initializeDataSourceBuilder()
                 .type(HikariDataSource.class)
                 .build();
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean(EntityManagerFactoryBuilder builder ,
-                                                                                         @Qualifier("dataSource") DataSource dataSource) {
+    public LocalContainerEntityManagerFactoryBean accountLocalContainerEntityManagerFactoryBean(EntityManagerFactoryBuilder builder ,
+                                                                                                @Qualifier("accountDataSource") DataSource dataSource) {
         HashMap<String, Object> properties = new HashMap<>();
         properties.put("hibernate.physical_naming_strategy" , CamelCaseToUnderscoresNamingStrategy.class);
         properties.put("hibernate.implicit_naming_strategy" , SpringImplicitNamingStrategy.class);
 
         return builder.dataSource(dataSource).properties(properties)
                 .packages("com.staffs.backend.entity.log" , "com.staffs.backend.entity.user"
-                        , "com.staffs.backend.entity.permission" , "com.staffs.backend.entity.role")
+                        , "com.staffs.backend.entity.permission" , "com.staffs.backend.entity.role"
+                        , "com.staffs.backend.entity.otp")
                 .persistenceUnit("account").build();
     }
 
     @Bean
-    public JdbcTemplate jdbcTemplateAccount(@Qualifier("dataSource") DataSource dataSource) {
+    public JdbcTemplate jdbcTemplateAccount(@Qualifier("accountDataSource") DataSource dataSource) {
         return new JdbcTemplate(dataSource);
     }
 
     @Bean
     public PlatformTransactionManager accountTransactionManager(
-            @Qualifier("localContainerEntityManagerFactoryBean") EntityManagerFactory entityManagerFactory) {
+            @Qualifier("accountLocalContainerEntityManagerFactoryBean") EntityManagerFactory entityManagerFactory) {
         return new JpaTransactionManager(entityManagerFactory);
     }
 

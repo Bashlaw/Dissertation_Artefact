@@ -2,9 +2,12 @@ package com.staffs.backend.general.service.implementation;
 
 import com.google.gson.Gson;
 import com.staffs.backend.exceptions.GeneralException;
+import com.staffs.backend.general.dto.RequestExtraInfo;
 import com.staffs.backend.general.dto.Response;
+import com.staffs.backend.general.dto.UserConstant;
 import com.staffs.backend.general.enums.ResponseCodeAndMessage;
 import com.staffs.backend.general.service.GeneralService;
+import jakarta.servlet.http.HttpServletRequest;
 import kong.unirest.HttpResponse;
 import kong.unirest.JsonNode;
 import lombok.RequiredArgsConstructor;
@@ -145,6 +148,13 @@ public class GeneralServiceImpl implements GeneralService {
         log.info("Successful ResponseCode => {}" , data);
 
         return response;
+    }
+
+    @Override
+    public RequestExtraInfo getRequestExtraInfo(HttpServletRequest request) {
+        String userType = (String) request.getAttribute(UserConstant.USER_TYPE);
+
+        return new RequestExtraInfo(userType);
     }
 
 }

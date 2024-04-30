@@ -6,10 +6,9 @@ public class MessageConstant {
     }
 
     public static final String SUCCESS = "Successful!";
-    public static final String RECORD_NOT_FOUND = "Record not found!";
     public static final String INVALID_ACTION = "Invalid action!";
     public static final String PAYMENT_FAILED = "Payment failed!";
-    public static final String INVALID_TRANSACTION = "Invalid transaction";
+    public static final String RECORD_NOT_FOUND = "Record not found!";
     public static final String INVALID_PACKAGE_NAME = "Invalid package name!";
     public static final String LICENSE_UPGRADE_ERROR = "license upgrade error!";
     public static final String RECORD_ALREADY_EXISTS = "Record already exists!";

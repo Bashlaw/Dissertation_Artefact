@@ -11,4 +11,10 @@ public class ConfigProperty {
     @Value("${jwt.secret:secret}")
     private String secret;
 
+    @Value("${spring.data.redis.host}")
+    private String redisHost;
+
+    @Value("${spring.data.redis.port}")
+    private int redisPort;
+
 }

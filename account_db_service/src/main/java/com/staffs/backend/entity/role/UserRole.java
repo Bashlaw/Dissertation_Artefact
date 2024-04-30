@@ -14,10 +14,10 @@ import java.util.List;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@Entity(name = "admin_user_roles")
+@Entity(name = "user_roles")
 @Table(indexes = {
-        @Index(name = "idx_adminuserrole_name", columnList = "name") ,
-        @Index(name = "idx_adminuserrole_alias", columnList = "alias")
+        @Index(name = "idx_userrole_name", columnList = "name") ,
+        @Index(name = "idx_userrole_alias", columnList = "alias")
 })
 public class UserRole extends BaseEntity {
 
