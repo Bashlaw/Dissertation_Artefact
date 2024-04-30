@@ -41,4 +41,5 @@ public interface UserService {
     UserListDTO getAllCustomer(PageableRequestDTO dto);
 
     UserListDTO getAllAdmin(PageableRequestDTO dto);
+
 }

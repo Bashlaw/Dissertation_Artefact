@@ -39,6 +39,7 @@ public class MessageConstant {
     public static final String ONLY_LOGGED_IN_USERS_CAN_PERFORM_THIS_ACTION = "Only logged in users can perform this action";
     public static final String PASSWORD_LENGTH_SHOULD_BE_BETWEEN_8_AND_20 = "Password length must be between 8 and 20 characters.";
     public static final String PASSWORD_IS_IN_HISTORY = "New password is in password history of last 5 passwords, kindly change it!";
+    public static final String NEED_TO_CHANGE_PASSWORD_TO_THEIR_DESIRED_PASSWORD_TO_CONTINUE = "Need to change password to their desired password to continue";
     public static final String USER_NEED_TO_CHANGE_PASSWORD_TO_THEIR_DESIRED_PASSWORD_AFTER_PASSWORD_RESET_TO_CONTINUE = "User need to change password to their desired password after password reset to continue...";
 
 }
