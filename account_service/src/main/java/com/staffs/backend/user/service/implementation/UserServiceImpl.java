@@ -74,6 +74,12 @@ public class UserServiceImpl implements UserService {
         String defaultPassword = PasswordUtil.generatePassword(8);
         user.setPassword(bCryptPasswordEncoder.encode(defaultPassword));
 
+        if (performedBy != null) {
+            user.setUserType(UserType.ADMIN);
+        } else {
+            user.setUserType(UserType.CUSTOMER);
+        }
+
         //set user role
         UserRole userRole = userRoleService.getRoleById(dto.getRoleId());
         user.setUserRole(userRole);
@@ -119,6 +125,12 @@ public class UserServiceImpl implements UserService {
         UserRoleDTO userRoleDTO = userRoleService.getRoleDTO(dto.getRoleId());
         UserRole userRole = userRoleService.getRoleById(userRoleDTO.getId());
         user.setUserRole(userRole);
+
+        if (performedBy != null) {
+            user.setUserType(UserType.ADMIN);
+        } else {
+            user.setUserType(UserType.CUSTOMER);
+        }
 
         //save to DB
         user = usersRepository.save(user);
@@ -267,7 +279,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void enableSystemUser(String email) {
+    public void enableUser(String email) {
         log.info("enabling system user {}" , email);
 
         Users user = getUser(email);
@@ -433,6 +445,22 @@ public class UserServiceImpl implements UserService {
     @Override
     public Users getUserById(Long id) {
         return usersRepository.findById(id).orElseThrow(() -> new GeneralException(ResponseCodeAndMessage.RECORD_NOT_FOUND.responseCode , MessageConstant.USER_NOT_FOUND));
+    }
+
+    @Override
+    public UserListDTO getAllCustomer(PageableRequestDTO dto) {
+
+        Page<Users> userPage = usersRepository.findAllByUserType(UserType.CUSTOMER , generalService.getPageableObject(dto.getSize() , dto.getPage()));
+
+        return getUserListDTO(userPage);
+    }
+
+    @Override
+    public UserListDTO getAllAdmin(PageableRequestDTO dto) {
+
+        Page<Users> userPage = usersRepository.findAllByUserType(UserType.ADMIN , generalService.getPageableObject(dto.getSize() , dto.getPage()));
+
+        return getUserListDTO(userPage);
     }
 
     private Users getAdminUserByPhoneNumber(String phoneNumber) {

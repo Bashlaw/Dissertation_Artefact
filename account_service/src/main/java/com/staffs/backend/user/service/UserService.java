@@ -24,7 +24,7 @@ public interface UserService {
 
     void disableUser(String email);
 
-    void enableSystemUser(String email);
+    void enableUser(String email);
 
     void createSuperSystemUser(UserRole userRole);
 
@@ -38,4 +38,7 @@ public interface UserService {
 
     Users getUserById(Long id);
 
+    UserListDTO getAllCustomer(PageableRequestDTO dto);
+
+    UserListDTO getAllAdmin(PageableRequestDTO dto);
 }

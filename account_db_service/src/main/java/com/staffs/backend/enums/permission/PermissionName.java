@@ -23,7 +23,7 @@ public enum PermissionName {
     //CUSTOMER USER
     CREATE_CUSTOMER("Create customer" , UserType.CUSTOMER),
     VIEW_CUSTOMER("View customer" , List.of(UserType.CUSTOMER , UserType.ADMIN)),
-    VIEW_CUSTOMERS("View customer" , UserType.ADMIN),
+    VIEW_CUSTOMERS("View customers" , UserType.ADMIN),
     UPDATE_CUSTOMER("Update customer" , UserType.CUSTOMER),
     DELETE_CUSTOMER("Delete customer" , UserType.CUSTOMER),
     DEACTIVATE_ACTIVATE_CUSTOMER("Deactivate/Activate customer" , UserType.ADMIN),

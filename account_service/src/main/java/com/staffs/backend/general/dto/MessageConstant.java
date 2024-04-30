@@ -26,6 +26,7 @@ public class MessageConstant {
     public static final String PASSWORD_DO_NOT_MATCH = "Password do not match";
     public static final String ROLE_ALREADY_DISABLED = "Role already disabled";
     public static final String OTP_VERIFICATION_FAILED = "OTP verification failed";
+    public static final String REGISTER_SUCCESSFUL = "Detail Register Successfully";
     public static final String OTP_GENERATED_SUCCESSFUL = "OTP generated successful";
     public static final String PASSWORD_RESET_SUCCESSFUL = "Password reset successfully";
     public static final String PASSWORD_CHANGE_SUCCESSFUL = "Password change successfully";

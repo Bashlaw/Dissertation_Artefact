@@ -1,6 +1,9 @@
 package com.staffs.backend.repository.user;
 
 import com.staffs.backend.entity.user.Users;
+import com.staffs.backend.enums.user.UserType;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -9,8 +12,6 @@ import java.util.Optional;
 public interface UsersRepository extends JpaRepository<Users, Long> {
 
     boolean existsByEmail(String email);
-
-    boolean existsByEmailAndDisabled(String email , boolean disabled);
 
     boolean existsByEmailAndPhoneNumber(String email , String phoneNumber);
 
@@ -25,5 +26,7 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
     String getEmailForPhoneNumber(String phoneNumber);
 
     Optional<Users> findByPhoneNumber(String phoneNumber);
+
+    Page<Users> findAllByUserType(UserType userType, Pageable pageable);
 
 }
