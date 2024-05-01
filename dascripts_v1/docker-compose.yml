@@ -1,0 +1,80 @@
+version: '3.1'
+
+services:
+  v1_postgresDB_service:
+    image: postgres
+    restart: always
+    container_name: v1_postgresDB_service
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/pgdata
+    env_file: ./project-local.env
+
+  v1_redis_service:
+    image: redis:latest
+    container_name: v1_redis_service
+    ports:
+      - "6379:6379"
+    volumes:
+      - data:/data
+    env_file: ./project-local.env
+
+  v1_account_backend_service:
+    depends_on:
+      - v1_postgresDB_service
+      - v1_redis_service
+    build:
+      context: ../
+      dockerfile: account_service/Dockerfile
+    container_name: v1_account_backend_service
+    image: account_backend_image
+    ports:
+      - "8060:8060"
+    links:
+      - v1_postgresDB_service:database
+    env_file:
+      - ./project-local.env
+
+  v1_communication_backend_service:
+    depends_on:
+      - v1_postgresDB_service
+      - v1_redis_service
+    build:
+      context: ../
+      dockerfile: communication_service/Dockerfile
+    container_name: v1_communication_backend_service
+    image: communication_backend_image
+    ports:
+      - "8070:8070"
+    links:
+      - v1_postgresDB_service:database
+    env_file:
+      - ./project-local.env
+
+  v1_billing_backend_service:
+    depends_on:
+      - v1_postgresDB_service
+      - v1_redis_service
+    build:
+      context: ../
+      dockerfile: billing_service/Dockerfile
+    container_name: v1_billing_backend_service
+    image: billing_backend_image
+    ports:
+      - "8080:8080"
+    links:
+      - v1_postgresDB_service:database
+    env_file:
+      - ./project-local.env
+
+
+volumes:
+  conf:
+  data:
+  import:
+  logs:
+  plugins:
+  sqlvolume:
+  uploads:
+  pgdata:
