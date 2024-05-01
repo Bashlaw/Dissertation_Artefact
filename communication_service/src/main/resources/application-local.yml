@@ -10,7 +10,6 @@ spring:
       ddl-auto: ${HIBERNATE_DDL_AUTO}
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: ${SHOW_SQL}
   cache:
@@ -22,10 +21,6 @@ spring:
     redis:
       host: ${REDIS_HOST}
       port: ${REDIS_PORT}
-  flyway:
-    enabled: true
-    locations: classpath:db/migration/communication
-    table: communication_flyway_schema_history
 
 server:
   port: ${COMMUNICATION_SERVICE_PORT}
