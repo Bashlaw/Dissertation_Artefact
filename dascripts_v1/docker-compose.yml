@@ -6,7 +6,7 @@ services:
     restart: always
     container_name: v1_postgresDB_service
     ports:
-      - "5432:5432"
+      - "5442:5442"
     volumes:
       - pgdata:/pgdata
     env_file: ./project-local.env
@@ -15,7 +15,7 @@ services:
     image: redis:latest
     container_name: v1_redis_service
     ports:
-      - "6379:6379"
+      - "6389:6389"
     volumes:
       - data:/data
     env_file: ./project-local.env
@@ -30,7 +30,7 @@ services:
     container_name: v1_account_backend_service
     image: account_backend_image
     ports:
-      - "8060:8060"
+      - "8030:8030"
     links:
       - v1_postgresDB_service:database
     env_file:
@@ -46,7 +46,7 @@ services:
     container_name: v1_communication_backend_service
     image: communication_backend_image
     ports:
-      - "8070:8070"
+      - "8040:8040"
     links:
       - v1_postgresDB_service:database
     env_file:
@@ -62,7 +62,7 @@ services:
     container_name: v1_billing_backend_service
     image: billing_backend_image
     ports:
-      - "8080:8080"
+      - "8050:8050"
     links:
       - v1_postgresDB_service:database
     env_file:
