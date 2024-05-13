@@ -202,7 +202,8 @@ public class BillingSetupServiceImpl implements BillingSetupService {
                         }
 
                         //make payment
-                        PaymentResponseDTO paymentResponse = callPushPaymentService(dto.getPaymentRequest());
+                        PaymentResponseDTO paymentResponse = new PaymentResponseDTO();
+//                                callPushPaymentService(dto.getPaymentRequest());
 
                         if (Objects.nonNull(paymentResponse.getPaymentUrl()) || (paymentResponse.getStatus() == 200 && dto.getPaymentRequest().getPaymentSource().equals("MPESA"))) {
                             billingSetupDTO.setPaymentUrl(paymentResponse.getPaymentUrl());
@@ -226,7 +227,7 @@ public class BillingSetupServiceImpl implements BillingSetupService {
 
                             //save to DB
                             billingSetupRepository.save(billingSetup);
-                            throw new GeneralException(ResponseCodeAndMessage.BAD_REQUEST.responseCode , MessageConstant.PAYMENT_FAILED);
+                            //throw new GeneralException(ResponseCodeAndMessage.BAD_REQUEST.responseCode , MessageConstant.PAYMENT_FAILED);
                         }
                     } else {
                         billingSetup.setValidate(true);

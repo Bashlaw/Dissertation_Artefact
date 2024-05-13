@@ -149,6 +149,8 @@ public class ClientServiceImpl implements ClientService {
         if (!clients.isEmpty()) {
             clientListDTO.setHasNextRecord(clientPage.hasNext());
             clientListDTO.setTotalCount((int) clientPage.getTotalElements());
+            clientListDTO.setSize(clientPage.getContent().size());
+            clientListDTO.setPage(clientPage.getNumber() + 1);
         }
 
         List<ClientDTO> clientDTOs = clients.stream().map(this::getClientDTO).toList();

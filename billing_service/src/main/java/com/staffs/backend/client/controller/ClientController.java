@@ -46,7 +46,7 @@ public class ClientController {
     }
 
     @GetMapping("/all")
-    public Response getClients(@Valid @RequestBody PageableRequestDTO requestDTO) {
+    public Response getClients(@Valid PageableRequestDTO requestDTO) {
 
         return generalService.prepareSuccessResponse(clientService.getClients(requestDTO));
 
@@ -55,9 +55,7 @@ public class ClientController {
     @GetMapping("/{clientName}")
     public Response getSingleClient(@PathVariable String clientName) {
 
-        ClientDTO response = clientService.getClientDTOByName(clientName);
-
-        return generalService.prepareSuccessResponse(response);
+        return generalService.prepareSuccessResponse(clientService.getClientDTOByName(clientName));
 
     }
 

@@ -1,0 +1,21 @@
+@startuml
+actor Customer
+entity "System" as System
+entity "Payment Gateway" as Payment
+
+Customer -> System : Browse available packages
+System -> Customer : Display packages set up by admin
+Customer -> System : Choose a package that suits needs
+Customer -> System : Set up account (if not already set up)
+System -> Customer : Confirm account setup
+Customer -> System : Set up subscription by selecting a package
+System -> Customer : Confirm subscription setup
+Customer -> System : Upgrade subscription (if necessary)
+System -> Customer : Process upgrade request
+Customer -> Payment : Make payment
+Payment -> System : Confirm payment
+System -> Customer : Acknowledge payment
+Customer -> System : View billing history
+System -> Customer : Display billing history
+
+@enduml

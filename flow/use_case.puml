@@ -1,0 +1,39 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+
+' Define actors
+actor "Customer" as Customer
+actor "Subscription Service" as SubService
+actor "Billing Service" as BillingService
+actor "Authentication Service" as AuthService
+
+' Define use cases
+usecase (Authenticate) as Auth
+usecase (Select Subscription Plan) as SelectPlan
+usecase (Activate Subscription) as ActivateSub
+usecase (Handle Monthly Billing) as MonthlyBilling
+usecase (Receive Notification) as ReceiveNotif
+
+' System boundaries
+rectangle "Subscription System" {
+    SubService -- (SelectPlan)
+    SubService -- (ActivateSub)
+    BillingService -- (MonthlyBilling)
+}
+
+' Relationships
+Customer --> Auth : "Authenticates >>"
+AuthService --> Auth : "Handles >>"
+Customer --> SelectPlan
+Customer --> ReceiveNotif
+SubService --> ActivateSub : "Activates >>"
+BillingService --> MonthlyBilling : "Manages >>"
+
+note "Authentication is required \nbefore selecting a plan." as N1
+Auth .. N1
+
+note "This layout provides a clear and organized\nview of the subscription-based system,\nhighlighting customer interactions and internal processes." as N2
+Auth .. N2
+MonthlyBilling .. N2
+
+@enduml

@@ -1,0 +1,34 @@
+@startuml
+skinparam monochrome true
+
+class WebApplication {
+    + uploadData()
+    + queryData()
+}
+
+class API {
+    + classifyData()
+    + establishRelationship()
+    + saveToDatabase()
+    + connectToWebSocket()
+}
+
+class Database {
+    + query()
+}
+
+class WebSocket {
+    + sendResult()
+}
+
+WebApplication --> API : uploadData
+API --> Database : classifyData
+API --> Database : establishRelationship
+API --> Database : saveToDatabase
+WebApplication --> API : queryData
+API --> WebSocket : connectToWebSocket
+WebSocket --> Database : query
+Database --> WebSocket : result
+WebSocket --> WebApplication : sendResult
+
+@enduml

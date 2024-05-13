@@ -118,7 +118,7 @@ public class GeneralServiceImpl implements GeneralService {
             size = maxPullSize;
         }
 
-        Sort sort = Sort.by(Sort.Direction.DESC , "id");
+        Sort sort = Sort.by(Sort.Direction.DESC , "createdAt");
 
         paged = PageRequest.of(page , size , sort);
 

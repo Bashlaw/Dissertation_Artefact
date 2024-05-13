@@ -1,0 +1,23 @@
+@startuml
+actor "System Trigger" as Trigger
+entity "Communication Handler" as CommHandler
+entity "SMS Service" as SMSService
+entity "Email Service" as EmailService
+entity "Notification Service" as NotificationService
+
+Trigger -> CommHandler : Await communication request
+CommHandler -> CommHandler : Pick up communication request when the event is triggered
+CommHandler -> CommHandler : Get request type
+
+alt Request type is SMS
+    CommHandler -> SMSService : Route request to SMS Service
+    SMSService -> SMSService : Execute SMS request
+else Request type is Email
+    CommHandler -> EmailService : Route request to Email Service
+    EmailService -> EmailService : Execute email request
+else Request type is Notification
+    CommHandler -> NotificationService : Route request to Notification Service
+    NotificationService -> NotificationService : Execute notification request
+end
+
+@enduml

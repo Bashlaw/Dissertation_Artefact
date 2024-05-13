@@ -15,7 +15,7 @@ public class BillingSetupRequestDTO {
     @NotEmpty(message = "Please provide account ID")
     private String accountId;
 
-    @NotNull
+    @NotNull(message = "Please provide billing method ID")
     private Long billingMethodId;
 
     private final String meansOfPayment = "Online";

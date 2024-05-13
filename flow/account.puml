@@ -1,0 +1,30 @@
+@startuml
+actor "User" as User
+entity "Account Service" as AccountService
+entity "Authentication Service" as AuthService
+entity "Authorization Service" as AuthzService
+database "User Database" as UserDB
+entity "API Gateway" as Gateway
+
+User -> AccountService : Register account (username, password)
+AccountService -> UserDB : Create user account
+UserDB -> AccountService : Confirm account creation
+AccountService -> User : Account created successfully
+
+User -> AuthService : Submit username and password for login
+AuthService -> UserDB : Validate credentials
+UserDB -> AuthService : Return validation result
+AuthService -> User : Credentials valid
+AuthService -> User : Generate token with user type
+note right of AuthService : Token includes encrypted \nuser type information
+
+User -> Gateway : Request access with token
+Gateway -> AuthService : Decode token and extract user type
+AuthService -> AuthzService : Request role and permissions for user type
+AuthzService -> UserDB : Retrieve role and permissions
+UserDB -> AuthzService : Return role and permissions
+AuthzService -> AuthService : Provide role and permissions
+AuthService -> Gateway : Authorize request based on role and permissions
+Gateway -> User : Grant or deny access
+
+@enduml

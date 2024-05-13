@@ -1,0 +1,37 @@
+@startuml
+actor User
+participant "Web Application" as WebApp
+participant "Open API Engine" as OpenAPI
+participant Database
+participant WebSocket
+
+User -> WebApp: uploadData()
+activate WebApp
+WebApp -> Database: classifyData()
+activate Database
+Database --> WebApp: Classification Result
+WebApp -> Database: establishRelationship()
+Database --> WebApp: Relationship Established
+WebApp -> Database: saveToDatabase()
+Database --> WebApp: Data Saved
+deactivate Database
+WebApp -> User: Data saved successfully
+
+User -> WebApp: queryData()
+activate WebApp
+WebApp -> WebSocket: connectToWebSocket()
+activate WebSocket
+WebSocket -> OpenAPI: query()
+activate OpenAPI
+OpenAPI -> Database: query()
+activate Database
+Database --> OpenAPI: Query Result
+OpenAPI --> WebSocket: Query Result
+deactivate Database
+deactivate OpenAPI
+WebSocket --> WebApp: Query Result
+deactivate WebSocket
+WebApp -> User: Display Query Result
+deactivate WebApp
+
+@enduml

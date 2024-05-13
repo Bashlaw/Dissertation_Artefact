@@ -78,7 +78,7 @@ public class RegionRateServiceImpl implements RegionRateService {
     public RegionRateDTO getSingle(String countryShortCode , Long packageRateVersionNo) {
         log.info("getting single region rate DTO info");
 
-        return getRegionRateDTO(getSingleRegionRate(countryShortCode , packageRateVersionNo));
+        return getRegionRateDTO(getSingleRegionRateByShortCode(countryShortCode , packageRateVersionNo));
 
     }
 
@@ -104,6 +104,14 @@ public class RegionRateServiceImpl implements RegionRateService {
     @Override
     public boolean isRegionRate(String countryName , Long packageRateVersionNo) {
         return Objects.nonNull(regionRateRepository.findByCountry_CountryNameAndPackageRate_VersionNo(countryName , packageRateVersionNo));
+    }
+
+    private RegionRate getSingleRegionRateByShortCode(String shortcode , Long packageRateVersionNo) {
+        log.info("getting single region rate by short code DTO info");
+
+        return regionRateRepository.findByCountry_ShortCodeAndPackageRate_VersionNo(shortcode , packageRateVersionNo)
+                .orElseThrow(() -> new GeneralException(ResponseCodeAndMessage.RECORD_NOT_FOUND.responseCode , MessageConstant.RECORD_NOT_FOUND));
+
     }
 
     private RegionRateDTO getRegionRateDTO(RegionRate regionRate) {
