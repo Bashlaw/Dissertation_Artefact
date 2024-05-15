@@ -25,7 +25,6 @@ public class UserController {
     private final UserService userService;
     private final GeneralService generalService;
 
-
     @GetMapping()
     public Response getLoggedInAdmin(@Parameter(hidden = true) Principal principal) {
         return generalService.prepareSuccessResponse(userService.getUserDTO(principal.getName()));
@@ -40,7 +39,6 @@ public class UserController {
         return generalService.prepareSuccessResponse(MessageConstant.REGISTER_SUCCESSFUL);
     }
 
-    @PreAuthorize("hasAuthority('CREATE_CUSTOMER')")
     @PostMapping("/customer")
     public Response createCustomer(@Valid @RequestBody CreateUpdateUserDTO dto) {
 

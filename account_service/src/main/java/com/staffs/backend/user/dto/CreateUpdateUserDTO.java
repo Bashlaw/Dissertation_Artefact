@@ -20,7 +20,12 @@ public class CreateUpdateUserDTO {
     @NotEmpty(message = "Phone number cannot be empty")
     private String phoneNumber;
 
-    @NotEmpty(message = "Role name cannot be empty")
     private Long roleId;
+
+    private String dob;
+
+    private String gender;
+
+    private String password;
 
 }

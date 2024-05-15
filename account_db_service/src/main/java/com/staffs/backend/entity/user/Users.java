@@ -51,4 +51,8 @@ public class Users extends BaseEntity {
 
     private boolean deleted = false;
 
+    private String dob;
+
+    private String gender;
+
 }

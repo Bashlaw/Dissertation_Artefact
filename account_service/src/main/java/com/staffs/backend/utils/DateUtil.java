@@ -139,4 +139,10 @@ public class DateUtil {
         }
     }
 
+    public static boolean lessThan18(String dateOfBirth) {
+        String[] dob = dateOfBirth.split("/");
+
+        return calculateAge(Integer.parseInt(dob[2]), Integer.parseInt(dob[1]), Integer.parseInt(dob[0])) < 18;
+    }
+
 }

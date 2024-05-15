@@ -20,6 +20,7 @@ import com.staffs.backend.user.dto.CreateUpdateUserDTO;
 import com.staffs.backend.user.dto.UserDTO;
 import com.staffs.backend.user.dto.UserListDTO;
 import com.staffs.backend.user.service.UserService;
+import com.staffs.backend.utils.DateUtil;
 import com.staffs.backend.utils.GeneralUtil;
 import com.staffs.backend.utils.PasswordHistoryChecker;
 import com.staffs.backend.utils.PasswordUtil;
@@ -66,23 +67,49 @@ public class UserServiceImpl implements UserService {
             throw new GeneralException(ResponseCodeAndMessage.BAD_REQUEST.responseCode , MessageConstant.INVALID_PHONE_NUMBER);
         }
 
+        if (!PasswordUtil.isValidPassword(dto.getPassword())) {
+            throw new GeneralException(ResponseCodeAndMessage.BAD_REQUEST.responseCode , MessageConstant.PASSWORD_IS_NOT_STRONG_ENOUGH);
+        }
+
+        if (dto.getDob().split("/").length != 3) {
+            throw new GeneralException(ResponseCodeAndMessage.BAD_REQUEST.responseCode , MessageConstant.INVALID_DATE_OF_BIRTH_FORMAT);
+        }
+
+        if (DateUtil.lessThan18(dto.getDob())) {
+            throw new GeneralException(ResponseCodeAndMessage.BAD_REQUEST.responseCode , MessageConstant.USER_MUST_BE_OLDER_THAN_18_YEARS);
+        }
+
+        //check if gender is valid
+        if (!dto.getGender().equalsIgnoreCase("MALE") && !dto.getGender().equalsIgnoreCase("FEMALE")) {
+            throw new GeneralException(ResponseCodeAndMessage.BAD_REQUEST.responseCode , MessageConstant.INVALID_GENDER);
+        }
+
         Users user = new Users();
 
         BeanUtils.copyProperties(dto , user);
 
         //set encrypted random password
         String defaultPassword = PasswordUtil.generatePassword(8);
-        user.setPassword(bCryptPasswordEncoder.encode(defaultPassword));
+        if (GeneralUtil.stringIsNullOrEmpty(dto.getPassword())) {
+            user.setPassword(bCryptPasswordEncoder.encode(defaultPassword));
+        } else {
+            defaultPassword = dto.getPassword();
+            user.setPassword(bCryptPasswordEncoder.encode(dto.getPassword()));
+        }
 
         if (performedBy != null) {
             user.setUserType(UserType.ADMIN);
+            if (dto.getRoleId() == null || dto.getRoleId() <= 0) {
+               throw new GeneralException(ResponseCodeAndMessage.BAD_REQUEST.responseCode , MessageConstant.ROLE_ID_IS_REQUIRED);
+            }
+
+            //set user role
+            UserRole userRole = userRoleService.getRoleById(dto.getRoleId());
+            user.setUserRole(userRole);
+
         } else {
             user.setUserType(UserType.CUSTOMER);
         }
-
-        //set user role
-        UserRole userRole = userRoleService.getRoleById(dto.getRoleId());
-        user.setUserRole(userRole);
 
         //save to DB
         usersRepository.save(user);
@@ -125,6 +152,8 @@ public class UserServiceImpl implements UserService {
         UserRoleDTO userRoleDTO = userRoleService.getRoleDTO(dto.getRoleId());
         UserRole userRole = userRoleService.getRoleById(userRoleDTO.getId());
         user.setUserRole(userRole);
+        user.setDob(dto.getDob());
+        user.setGender(dto.getGender());
 
         if (performedBy != null) {
             user.setUserType(UserType.ADMIN);

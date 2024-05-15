@@ -62,7 +62,7 @@ public class WebSecurityConfig {
                                 "/configuration/security" , "/swagger-ui/**" , "/swagger-ui.html" , "/webjars/**" ,
                                 "/api/v1/authenticate/**" , "/api/v1/user/resetPassword/**" , "/api/v1/enums/**" ,
                                 "/api/v1/user/forgetPassword/**" , "/api/v1/user/validateForgetPasswordToken/**" ,
-                                "/api/v1/otp/generate/**").permitAll()
+                                "/api/v1/otp/generate/**" , "/api/v1/user/customer").permitAll()
                         .anyRequest()
                         .authenticated());
 

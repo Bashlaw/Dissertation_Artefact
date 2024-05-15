@@ -32,6 +32,7 @@ public class PasswordHistoryChecker {
         String key = getPasswordHistoryKey(username , userType);
         // Add the new password to the user's password history
         jedis = new Jedis(configProperty.getRedisHost() , configProperty.getRedisPort());
+        passwordEncoder = new BCryptPasswordEncoder();
         jedis.lpush(key , passwordEncoder.encode(newPassword));
         // Trim the list to keep only the last MAX_HISTORY_LENGTH passwords
         jedis.ltrim(key , 0 , MAX_HISTORY_LENGTH - 1);
