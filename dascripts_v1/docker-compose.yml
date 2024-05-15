@@ -28,7 +28,7 @@ services:
       context: ../
       dockerfile: account_service/Dockerfile
     container_name: v1_account_backend_service
-    image: account_backend_image
+    image: account_backend_image_v1
     ports:
       - "8030:8030"
     links:
@@ -44,7 +44,7 @@ services:
       context: ../
       dockerfile: communication_service/Dockerfile
     container_name: v1_communication_backend_service
-    image: communication_backend_image
+    image: communication_backend_image_v1
     ports:
       - "8040:8040"
     links:
@@ -60,7 +60,7 @@ services:
       context: ../
       dockerfile: billing_service/Dockerfile
     container_name: v1_billing_backend_service
-    image: billing_backend_image
+    image: billing_backend_image_v1
     ports:
       - "8050:8050"
     links:
